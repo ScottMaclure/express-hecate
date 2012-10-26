@@ -1,6 +1,6 @@
-/*globals describe it require beforeEach afterEach expect */
+/*global describe it require beforeEach afterEach expect */
 
-var Router = require('../../app/services/Router.js').Router;
+var Router = require('../lib/Router.js').Router;
 var sinon = require('sinon');
 
 /**
@@ -12,7 +12,10 @@ describe('The Router', function(){
     var spy;
 
     beforeEach(function(){
-        router = new Router();
+        router = new Router({
+            controllersPath: 'test/helpers/',
+            routesFile: 'test/helpers/routes.conf'
+        });
     });
 
     afterEach(function(){
@@ -21,6 +24,16 @@ describe('The Router', function(){
         if (spy !== undefined){
             spy.restore();
         }
+    });
+
+    it('uses sensible defaults', function(){
+
+        // Create a default router.
+        router = new Router();
+
+        // Verify.
+        expect(router.options.controllersPath).toBe('app/controllers/');
+        expect(router.options.routesFile).toBe('config/routes.conf');
     });
 
     it('stores config options', function(){
@@ -148,7 +161,7 @@ describe('The Router', function(){
 
             // Call the method.
             try {
-                var url = router.bindUrl('/demos/:first/type/:second', 'foo');
+                router.bindUrl('/demos/:first/type/:second', 'foo');
             }
             catch(e){
                 error = true;
