@@ -1,0 +1,22 @@
+{
+    "name": "Express-Router",
+    "description": "A convenience module for configuring routes in Express like those in Play!",
+    "author": "Pascal Zajac <pascalzajac@hotmail.com>",
+    "version": "0.1.0",
+    "main": "lib/Router.js",
+    "private": false,
+    "scripts": {
+        "test": "jasmine-node test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/PascalZajac/Express-Router.git"
+    },
+    "dependencies": {
+        "extend": "*",
+        "sinon": "*"
+    },
+    "engines": {
+        "node": "*"
+    }
+}
