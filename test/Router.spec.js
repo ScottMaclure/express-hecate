@@ -49,15 +49,15 @@ describe('The Router', function(){
         expect(router.options.routesFile).toBe('some.file');
     });
 
-    describe('the getRoutes method', function(){
+    describe('when loading the routes', function(){
 
         it('parses the specified routes file', function(){
 
             // Parse the routes.
             var routes = router.getRoutes();
 
-            // There should be 4.
-            expect(routes.length).toBe(4);
+            // There should be 5.
+            expect(routes.length).toBe(5);
 
             // Grab the first one.
             var route = routes[0];
@@ -88,7 +88,7 @@ describe('The Router', function(){
         });
     });
 
-    describe('the bindRoutes method', function(){
+    describe('when binding routes against an app', function(){
 
         var app;
 
@@ -96,7 +96,8 @@ describe('The Router', function(){
 
             // Mock an Express app.
             app = {
-                get: function(){}
+                get: function(){},
+                post: function(){}
             };
         });
 
@@ -131,9 +132,22 @@ describe('The Router', function(){
             // And a function was passed.
             expect(typeof call.args[1]).toBe('function');
         });
+
+        it('copes with different HTTP verbs', function(){
+
+            // Create a spy.
+            spy = sinon.spy(app, 'post');
+
+            // Bind the routes.
+            router.bindRoutes(app);
+
+            // The spy should have been called once.
+            expect(spy.calledOnce).toBe(true);
+            expect(spy.getCall(0).args[0]).toBe('/users/login');
+        });
     });
 
-    describe('the bindUrl method', function(){
+    describe('when binding parameters into URLs', function(){
 
         var DUMMY_URL = '/demos/:test';
 
@@ -275,15 +289,19 @@ describe('The Router', function(){
     describe('the reverse method', function(){
 
         it('fetches URLs for given controller/method combos', function(){
-
-        });
-
-        it('copes without parameters', function(){
-
+            var url = router.reverse('app.index');
+            expect(url).toBe('/');
         });
 
         it('accepts parameters and binds those into the URL', function(){
 
+            // Call the method.
+            var url = router.reverse('demos.index', {
+                foo: 'something'
+            });
+
+            // Verify.
+            expect(url).toBe('/demos/something');
         });
 
         it('continues trying matches if binding was unsuccessful', function(){

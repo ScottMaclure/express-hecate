@@ -1,10 +1,7 @@
 /*global module */
 
 /**
- * Main demonstration page.
+ * Mock routes for use in testing.
  */
-module.exports.index = function(req, res){
-    res.render('usage', {
-        title: 'Usage Examples'
-    });
-};
+module.exports.index = function(req, res){};
+module.exports.login = function(req, res){};
