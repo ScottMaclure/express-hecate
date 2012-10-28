@@ -297,7 +297,7 @@ describe('The Router', function(){
 
             // Call the method.
             var url = router.reverse('demos.index', {
-                foo: 'something'
+                test: 'something'
             });
 
             // Verify.
