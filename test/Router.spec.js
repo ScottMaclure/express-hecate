@@ -127,7 +127,7 @@ describe('The Router', function(){
             var call = spy.getCall(3);
 
             // Make sure the URL pattern is what we expect.
-            expect(call.args[0]).toBe('/demos/:test');
+            expect(call.args[0]).toBe('/demos');
             // And a function was passed.
             expect(typeof call.args[1]).toBe('function');
         });
@@ -278,15 +278,23 @@ describe('The Router', function(){
 
         });
 
+        it('copes without parameters', function(){
+
+        });
+
         it('accepts parameters and binds those into the URL', function(){
 
         });
 
-        it('returns the raw URL pattern if there are no parameters', function(){
+        it('continues trying matches if binding was unsuccessful', function(){
 
         });
 
         it('throws an exception if the specified controller/method pairing does not exist', function(){
+
+        });
+
+        it('rethrows a binding exception if a match was found but binding failed', function(){
 
         });
     });
