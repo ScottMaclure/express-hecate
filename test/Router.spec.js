@@ -56,8 +56,8 @@ describe('The Router', function(){
             // Parse the routes.
             var routes = router.getRoutes();
 
-            // There should be 5.
-            expect(routes.length).toBe(5);
+            // There should be 6.
+            expect(routes.length).toBe(6);
 
             // Grab the first one.
             var route = routes[0];
@@ -121,8 +121,8 @@ describe('The Router', function(){
             // Bind the routes.
             router.bindRoutes(app);
 
-            // The spy should be called 4 times.
-            expect(spy.callCount).toBe(4);
+            // The spy should be called 5 times.
+            expect(spy.callCount).toBe(5);
 
             // Grab the last one.
             var call = spy.getCall(3);
@@ -306,14 +306,38 @@ describe('The Router', function(){
 
         it('continues trying matches if binding was unsuccessful', function(){
 
+            // Call the method.
+            var url = router.reverse('demos.index');
+
+            // We should fail on the parameterised URL and pass through to the stock one.
+            expect(url).toBe('/demos');
         });
 
         it('throws an exception if the specified controller/method pairing does not exist', function(){
 
+            var error = false;
+
+            // Call the method.
+            try {
+                router.reverse('something.fake');
+            }
+            catch(e){
+                error = true;
+                expect(e.toString()).toMatch('No matching action was found.');
+            }
+
+            expect(error).toBe(true);
         });
 
         it('rethrows a binding exception if a match was found but binding failed', function(){
 
+            // Call the method.
+            try {
+                router.reverse('demos.required');
+            }
+            catch(e){
+                expect(e.toString()).toMatch('Insufficient parameters passed. Unable to bind: :required');
+            }
         });
     });
 });
