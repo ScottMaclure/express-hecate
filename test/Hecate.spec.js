@@ -1,6 +1,6 @@
 /*global describe it require beforeEach afterEach expect */
 
-var Router = require('../lib/Router.js').Router;
+var Router = require('../lib/Hecate.js').Router;
 var sinon = require('sinon');
 
 /**
