@@ -1,10 +1,10 @@
 /*global describe it require beforeEach afterEach expect */
 
-var Router = require('../lib/Hecate.js').Router;
+var Hecate = require('../lib/Hecate.js');
 var sinon = require('sinon');
 
 /**
- * Tests for the Router implementation.
+ * Tests for the Hecate implementation.
  */
 describe('The Router', function(){
 
@@ -12,7 +12,7 @@ describe('The Router', function(){
     var spy;
 
     beforeEach(function(){
-        router = new Router({
+        router = new Hecate({
             controllersPath: 'test/helpers/',
             routesFile: 'test/helpers/routes.conf'
         });
@@ -29,7 +29,7 @@ describe('The Router', function(){
     it('uses sensible defaults', function(){
 
         // Create a default router.
-        router = new Router();
+        router = new Hecate();
 
         // Verify.
         expect(router.options.controllersPath).toBe('app/controllers/');
@@ -39,7 +39,7 @@ describe('The Router', function(){
     it('stores config options', function(){
 
         // Create a customised router.
-        router = new Router({
+        router = new Hecate({
             controllersPath: 'something/',
             routesFile: 'some.file'
         });
