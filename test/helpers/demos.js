@@ -3,6 +3,6 @@
 /**
  * Mock routes for use in testing.
  */
-module.exports.index = function(req, res){};
-module.exports.login = function(req, res){};
-module.exports.required = function(req, res){};
+module.exports.index = function(){};
+module.exports.login = function(){};
+module.exports.required = function(){};
