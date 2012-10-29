@@ -31,3 +31,7 @@ That's not all though, as Hecate also provides a `reverse()` method for resolvin
 #### Resulting HTML
     <a href="/faqs">FAQs</a>
     <a href="/demos/foo>Foo</a>
+
+## ...Why Hecate?
+
+Hecate is [variously associated with crossroads, entrance-ways](http://en.wikipedia.org/wiki/Hecate). I wanted a name that was sufficiently unique (the plugin space already being fairly crowded) and hopefully memorable, so I started thinking abstractly about routes and travelling and from there to the gods associated with such endeavours. Also, Hecate has some personal significance, and I'm a sentimentalist at heart.
