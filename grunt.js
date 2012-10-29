@@ -33,7 +33,6 @@ module.exports = function(grunt) {
 		lint: {
 			all: ['grunt.js',
                 'package.json',
-                'config/**/*.js',
                 'lib/**/*.js',
                 'test/**/*.js']
 		},
