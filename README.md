@@ -1,8 +1,8 @@
-# Express-Router
+# Express Hecate
 
-[![Build Status](https://secure.travis-ci.org/PascalZajac/Express-Router.png)](http://travis-ci.org/PascalZajac/Express-Router)
+[![Build Status](https://secure.travis-ci.org/PascalZajac/express-hecate.png)](http://travis-ci.org/PascalZajac/express-hecate)
 
-A convenience module for configuring routes in Express like those in [Play!](http://www.playframework.org/)
+A convenience module for configuring and reversing routes in Express, like those in [Play!](http://www.playframework.org/)
 
 ## Why?
 
@@ -20,13 +20,13 @@ Basically you supply a configuration file mapping HTTP verbs, URL paths and cont
     GET     /demos                  demos.index
     GET     /demos/:test            demos.index
 
-The Router parses this file and will create the appropriate mappings against your Express app instance.
+Hecate parses this file and will create the appropriate mappings against your Express app instance.
 
-That's not all though, as the Router also provides a `reverse()` method for resolving URLs. This decouples your views from your URL structures - you just make a call to Router.reverse, passing in the controller and method pairing you want resolved, and any parameters you want bound into the generated URL.
+That's not all though, as Hecate also provides a `reverse()` method for resolving URLs. This decouples your views from your URL structures - you just make a call to Hecate.reverse, passing in the controller and method pairing you want resolved, and any parameters you want bound into the generated URL.
 
 #### In Jade
-    a(href=Router.reverse('app.faqs')) FAQs
-    a(href=Router.reverse('demos.index', 'foo') Foo
+    a(href=Hecate.reverse('app.faqs')) FAQs
+    a(href=Hecate.reverse('demos.index', 'foo') Foo
 
 #### Resulting HTML
     <a href="/faqs">FAQs</a>
