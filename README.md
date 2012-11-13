@@ -4,6 +4,31 @@
 
 A convenience module for configuring and reversing routes in Express, like those in [Play!](http://www.playframework.org/)
 
+## Usage
+
+    var app = express();
+    var Hecate = require('express-hecate);
+    var hecate = new Hecate({
+        controllersPath: 'app/controllers/',
+        routesFile: 'config/routes.conf',
+        templateVar: 'Hecate'
+    });
+    hecate.bindRoutes(app);
+
+### Options
+
+#### controllersPath
+##### Default: app/controllers/
+The root folder in which all controllers live (saves you having to specify complete paths continuously in the routes.conf file).
+
+#### routesFile
+##### Default: config/routes.conf
+The path to the routes file that should be parsed.
+
+#### templateVar
+##### Default: Hecate
+Hecate is automatically made available to all views throughout an Express app by way of the app.locals object. The `templateVar` config option controls the name of the variable used on the app.locals object to store the Hecate instance.
+
 ## Why?
 
 My goal was to make configuring route => controller mappings in Express easier when dealing with 'static' routes. The amount of boilerplate required to map more than a handful of URLs to controllers seemed extravagant, so I wanted something that would do the majority of the work for me. Having come from a project built on the Play! framework, I found the way routes are defined in that quite pleasant and useful, so I decided to use that as my model.
