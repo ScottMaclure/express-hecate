@@ -119,7 +119,8 @@ describe('The Router', function(){
             // Mock an Express app.
             app = {
                 get: function(){},
-                post: function(){}
+                post: function(){},
+                locals: {}
             };
         });
 
@@ -166,6 +167,15 @@ describe('The Router', function(){
             // The spy should have been called once.
             expect(spy.calledOnce).toBe(true);
             expect(spy.getCall(0).args[0]).toBe('/users/login');
+        });
+
+        it('makes the Hecate instance available to templates via app.locals', function(){
+
+            // Bind the routes.
+            router.bindRoutes(app);
+
+            // There should now be a Hecate instance as app.locals.Hecate.
+            expect(app.locals.Hecate).not.toBeUndefined();
         });
     });
 
