@@ -35,6 +35,7 @@ describe('The Router', function(){
         // Verify.
         expect(router.options.controllersPath).toBe('app/controllers/');
         expect(router.options.routesFile).toBe('config/routes.conf');
+        expect(router.options.templateVar).toBe('Hecate');
     });
 
     it('stores config options', function(){
@@ -42,12 +43,14 @@ describe('The Router', function(){
         // Create a customised router.
         router = new Hecate({
             controllersPath: 'something/',
-            routesFile: 'some.file'
+            routesFile: 'some.file',
+            templateVar: 'Router'
         });
 
         // Verify.
         expect(router.options.controllersPath).toBe('something/');
         expect(router.options.routesFile).toBe('some.file');
+        expect(router.options.templateVar).toBe('Router');
     });
 
     describe('when loading the routes', function(){
@@ -97,7 +100,7 @@ describe('The Router', function(){
 
             // Parse.
             try {
-                var routes = router.getRoutes();
+                router.getRoutes();
             }
             catch(e){
                 error = true;
