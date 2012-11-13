@@ -10,6 +10,7 @@ describe('The Router', function(){
 
     var router;
     var spy;
+    var error = false;
 
     beforeEach(function(){
         router = new Hecate({
@@ -85,6 +86,24 @@ describe('The Router', function(){
 
             // Ensure it wasn't called again.
             expect(spy.calledOnce).toBe(true);
+        });
+
+        it('generates warnings for unrecognised HTTP verbs', function(){
+
+            // Create a customised router.
+            router = new Hecate({
+                routesFile: 'test/helpers/broken.conf'
+            });
+
+            // Parse.
+            try {
+                var routes = router.getRoutes();
+            }
+            catch(e){
+                error = true;
+                expect(e.toString()).toMatch('Unrecognised HTTP verb for route: /test');
+            }
+            expect(error).toBe(true);
         });
     });
 
@@ -170,8 +189,6 @@ describe('The Router', function(){
         });
 
         it('throws an exception if insufficient parameters are passed', function(){
-
-            var error = false;
 
             // Call the method.
             try {
@@ -314,8 +331,6 @@ describe('The Router', function(){
         });
 
         it('throws an exception if the specified controller/method pairing does not exist', function(){
-
-            var error = false;
 
             // Call the method.
             try {
