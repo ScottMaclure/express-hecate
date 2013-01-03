@@ -4,6 +4,12 @@ var Hecate = require('../lib/Hecate.js');
 var sinon = require('sinon');
 
 /**
+ * TODO:
+ *  - Ignore nested objects.
+ *  - Ignore functions?
+ */
+
+/**
  * Tests for the Hecate implementation.
  */
 describe('The Router', function(){
@@ -19,9 +25,8 @@ describe('The Router', function(){
         });
     });
 
+    // If we used a spy, restore it.
     afterEach(function(){
-
-        // If we used a spy, restore it.
         if (spy !== undefined){
             spy.restore();
         }
@@ -99,14 +104,9 @@ describe('The Router', function(){
             });
 
             // Parse.
-            try {
+            expect(function(){
                 router.getRoutes();
-            }
-            catch(e){
-                error = true;
-                expect(e.toString()).toMatch('Unrecognised HTTP verb for route: /test');
-            }
-            expect(error).toBe(true);
+            }).toThrow(new Error('Unrecognised HTTP verb for route: /test'));
         });
     });
 
@@ -202,17 +202,9 @@ describe('The Router', function(){
         });
 
         it('throws an exception if insufficient parameters are passed', function(){
-
-            // Call the method.
-            try {
+            expect(function(){
                 router.bindUrl('/demos/:first/type/:second', 'foo');
-            }
-            catch(e){
-                error = true;
-                expect(e.toString()).toMatch('Insufficient parameters passed. Unable to bind: :second');
-            }
-
-            expect(error).toBe(true);
+            }).toThrow(new Error('Insufficient parameters passed. Unable to bind: :second'));
         });
 
         it('copes with numbers', function(){
@@ -344,28 +336,15 @@ describe('The Router', function(){
         });
 
         it('throws an exception if the specified controller/method pairing does not exist', function(){
-
-            // Call the method.
-            try {
+            expect(function(){
                 router.reverse('something.fake');
-            }
-            catch(e){
-                error = true;
-                expect(e.toString()).toMatch('No matching action was found.');
-            }
-
-            expect(error).toBe(true);
+            }).toThrow(new Error('No matching action was found.'));
         });
 
         it('rethrows a binding exception if a match was found but binding failed', function(){
-
-            // Call the method.
-            try {
+            expect(function(){
                 router.reverse('demos.required');
-            }
-            catch(e){
-                expect(e.toString()).toMatch('Insufficient parameters passed. Unable to bind: :required');
-            }
+            }).toThrow(new Error('Insufficient parameters passed. Unable to bind: :required'));
         });
     });
 });
