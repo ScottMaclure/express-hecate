@@ -4,11 +4,6 @@ var Hecate = require('../lib/Hecate.js');
 var sinon = require('sinon');
 
 /**
- * TODO:
- *  - Ignore functions?
- */
-
-/**
  * Tests for the Hecate implementation.
  */
 describe('Hecate', function(){
