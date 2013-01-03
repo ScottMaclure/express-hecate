@@ -15,7 +15,6 @@ describe('Hecate', function(){
 
     var router;
     var spy;
-    var error = false;
 
     beforeEach(function(){
         router = new Hecate({
@@ -318,7 +317,21 @@ describe('Hecate', function(){
 
             // Verify.
             expect(url).toBe('/demos/something');
-        })
+        });
+
+        it('ignores functions in passed objects', function(){
+
+            // Call the method.
+            var url = router.bindUrl('/demos/:foo', {
+                foo: 'something',
+                bar: function(){
+                    return 'val';
+                }
+            });
+
+            // Verify.
+            expect(url).toBe('/demos/something');
+        });
     });
 
     describe('the reverse method', function(){
