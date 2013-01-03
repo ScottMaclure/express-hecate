@@ -2,7 +2,7 @@
     "name": "express-hecate",
     "description": "A convenience module for configuring and reversing routes in Express, like those in Play!",
     "author": "Pascal Zajac <pascalzajac@hotmail.com>",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "main": "lib/Hecate.js",
     "private": false,
     "scripts": {

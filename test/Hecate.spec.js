@@ -317,6 +317,16 @@ describe('Hecate', function(){
 
             // Verify.
             expect(url).toBe('/demos/something');
+
+            // Make sure that's true for named keys too.
+            var url = router.bindUrl('/demos/:foo', [{
+                foo: {
+                    bar: 'val'
+                }
+            }, 'test']);
+
+            // Verify.
+            expect(url).toBe('/demos/test');
         });
 
         it('ignores functions in passed objects', function(){
@@ -331,6 +341,16 @@ describe('Hecate', function(){
 
             // Verify.
             expect(url).toBe('/demos/something');
+
+            // Make sure that's true for named keys too.
+            var url = router.bindUrl('/demos/:foo', [{
+                foo: function(){
+                    return 'bar';
+                }
+            }, 'test']);
+
+            // Verify.
+            expect(url).toBe('/demos/test');
         });
     });
 
