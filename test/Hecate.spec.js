@@ -5,14 +5,13 @@ var sinon = require('sinon');
 
 /**
  * TODO:
- *  - Ignore nested objects.
  *  - Ignore functions?
  */
 
 /**
  * Tests for the Hecate implementation.
  */
-describe('The Router', function(){
+describe('Hecate', function(){
 
     var router;
     var spy;
@@ -306,6 +305,20 @@ describe('The Router', function(){
             }
             expect(failed).toBe(true);
         });
+
+        it('ignores nested objects', function(){
+
+            // Call the method.
+            var url = router.bindUrl('/demos/:foo', {
+                foo: 'something',
+                bar: {
+                    test: 'val'
+                }
+            });
+
+            // Verify.
+            expect(url).toBe('/demos/something');
+        })
     });
 
     describe('the reverse method', function(){
