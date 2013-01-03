@@ -352,6 +352,25 @@ describe('Hecate', function(){
             // Verify.
             expect(url).toBe('/demos/test');
         });
+
+        it('does not mangle original objects', function(){
+
+            // Define an object.
+            var data = {
+                foo: 'test',
+                bar: 'something'
+            };
+
+            // Create a URL.
+            var url = router.bindUrl('/demos/:bar', data);
+
+            // Ensure the values were injected correctly.
+            expect(url).toBe('/demos/something?foo=test');
+
+            // Ensure our object is unchanged.
+            expect(data.foo).toBe('test');
+            expect(data.bar).toBe('something');
+        });
     });
 
     describe('the reverse method', function(){
