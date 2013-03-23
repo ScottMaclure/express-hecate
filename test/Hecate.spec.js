@@ -1,4 +1,9 @@
-/*global describe it require beforeEach afterEach expect */
+/*global describe */
+/*global it */
+/*global require */
+/*global beforeEach */
+/*global afterEach */
+/*global expect */
 
 var Hecate = require('../lib/Hecate.js');
 var sinon = require('sinon');
@@ -314,7 +319,7 @@ describe('Hecate', function(){
             expect(url).toBe('/demos/something');
 
             // Make sure that's true for named keys too.
-            var url = router.bindUrl('/demos/:foo', [{
+            url = router.bindUrl('/demos/:foo', [{
                 foo: {
                     bar: 'val'
                 }
@@ -338,7 +343,7 @@ describe('Hecate', function(){
             expect(url).toBe('/demos/something');
 
             // Make sure that's true for named keys too.
-            var url = router.bindUrl('/demos/:foo', [{
+            url = router.bindUrl('/demos/:foo', [{
                 foo: function(){
                     return 'bar';
                 }

@@ -2,16 +2,23 @@
 
 module.exports = function(grunt) {
 
+    // Load dependencies.
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-regarde');
+
 	/**
 	 * Define our Grunt configuration.
 	 */
 	grunt.initConfig({
 
 		/**
-		 * Define the validation options to apply.
-		 * See: http://www.jshint.com/docs/
+		 * Define the files we'll validate.
 		 */
 		jshint: {
+            /**
+             * Define the validation options to apply.
+             * See: http://www.jshint.com/docs/
+             */
 			options: {
 				browser: true,
 				curly: true,
@@ -24,14 +31,8 @@ module.exports = function(grunt) {
 				sub: true,
 				undef: true,
 				unused: true
-			}
-		},
-		
-		/**
-		 * Define the files we'll validate.
-		 */
-		lint: {
-			all: ['grunt.js',
+			},
+			all: ['Gruntfile.js',
                 'package.json',
                 'lib/**/*.js',
                 'test/**/*.js']
@@ -40,14 +41,14 @@ module.exports = function(grunt) {
 		/**
 		 * Allow Grunt to run by itself.
 		 */
-		watch: {
+		regarde: {
 			scripts: {
-				files: '<config:lint.all>',
-				tasks: 'lint'
+				files: '<%= jshint.all %>',
+				tasks: 'jshint'
 			}
 		}
 	});
 	
 	// By default, just run lint.
-	grunt.registerTask('default', 'lint');
+	grunt.registerTask('default', 'jshint');
 };
