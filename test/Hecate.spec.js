@@ -1,9 +1,4 @@
-/*global describe */
-/*global it */
-/*global require */
-/*global beforeEach */
-/*global afterEach */
-/*global expect */
+/*global describe, it, require, beforeEach, afterEach, expect */
 
 var Hecate = require('../lib/Hecate.js');
 var sinon = require('sinon');
