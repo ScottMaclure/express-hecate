@@ -162,8 +162,18 @@ describe('Hecate', function(){
             expect(spy.getCall(0).args[0]).toBe('/users/login');
         });
 
-       xit('supports paths when referencing controllers', function(){
-            expect(false).toBe(true);
+       it('supports paths when referencing controllers', function(){
+
+           // Create a spy.
+           spy = sinon.spy(app, 'get');
+
+           // Bind the routes.
+           router.bindRoutes(app);
+
+           // Grab the 6th call (to the event.show combination), and make sure the function was loaded.
+           var call = spy.getCall(5);
+           expect(call.args[0]).toBe('/calendar/:id');
+           expect(typeof call.args[1]).toBe('function');
         });
 
         it('makes the Hecate instance available to templates via app.locals', function(){
