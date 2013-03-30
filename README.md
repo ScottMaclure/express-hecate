@@ -8,7 +8,7 @@ A convenience module for configuring and reversing routes in Express, like those
 ## Usage
 
     var app = express();
-    var Hecate = require('express-hecate);
+    var Hecate = require('express-hecate');
     var hecate = new Hecate({
         controllersPath: 'app/controllers/',
         routesFile: 'config/routes.conf',
