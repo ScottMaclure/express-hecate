@@ -198,8 +198,18 @@ describe('Hecate', function(){
             }).toThrow(new Error('The specified controller (app/controllers/nothing) does not exist.'));
         });
 
-        xit('throws an exception if the specified method does not exist', function(){
-            expect(false).toBe(true);
+        it('throws an exception if the specified method does not exist', function(){
+
+            // Create a customised router.
+            router = new Hecate({
+                controllersPath: 'test/helpers/controllers/',
+                routesFile: 'test/helpers/broken_configs/missing_method.conf'
+            });
+
+            // Bind the routes.
+            expect(function(){
+                router.bindRoutes(app);
+            }).toThrow(new Error('The specified method (nothing) does not exist on the controller (test/helpers/controllers/app).'));
         });
 
         xit('allows binding of static directories', function(){
