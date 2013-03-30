@@ -126,6 +126,7 @@ describe('Hecate', function(){
             app = {
                 get: function(){},
                 post: function(){},
+                use: function(){},
                 locals: {}
             };
         });
@@ -225,12 +226,31 @@ describe('Hecate', function(){
             }).toThrow(new Error('The specified method (nothing) does not exist on the controller (test/helpers/controllers/app).'));
         });
 
-        xit('allows binding of static directories', function(){
-            expect(false).toBe(true);
+        it('allows binding of static directories', function(){
+
+            // Create a spy.
+            spy = sinon.spy(app, 'use');
+
+            // Bind the routes.
+            router.bindRoutes(app);
+
+            // Verify.
+            expect(spy.calledOnce).toBe(true);
+            var call = spy.getCall(0);
+            expect(typeof call.args[0]).toBe('function');
         });
 
-        xit('throws an exception if a static directory does not exist', function(){
-            expect(false).toBe(true);
+        it('throws an exception if a static directory does not exist', function(){
+
+            // Create a customised router.
+            router = new Hecate({
+                routesFile: 'test/helpers/broken_configs/missing_static_directory.conf'
+            });
+
+            // Bind the routes.
+            expect(function(){
+                router.bindRoutes(app);
+            }).toThrow(new Error('The specified static path (nothing) does not exist or is not a directory.'));
         });
     });
 

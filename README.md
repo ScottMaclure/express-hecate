@@ -75,6 +75,7 @@ that demonstrates how to integrate Hecate in your Express application. It also f
 explanation of the core principles.
 
 ## Changelog
+* 0.4.0 - Adding support for static directories, extensively improved error handling.
 * 0.3.4 - Documentation cleanup, fixing lint issues, reformatting, added changelog.
 * 0.3.3 - Vastly expanded support for objects and named variable references in `reverse` method.
 * 0.2.4 - Initial NPM release, basic binding support.
