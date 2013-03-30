@@ -185,8 +185,17 @@ describe('Hecate', function(){
             expect(app.locals.Hecate).not.toBeUndefined();
         });
 
-        xit('throws an exception if the specified controller does not exist', function(){
-            expect(false).toBe(true);
+        it('throws an exception if the specified controller does not exist', function(){
+
+            // Create a customised router.
+            router = new Hecate({
+                routesFile: 'test/helpers/broken_configs/missing_controller.conf'
+            });
+
+            // Bind the routes.
+            expect(function(){
+                router.bindRoutes(app);
+            }).toThrow(new Error('The specified controller (app/controllers/nothing) does not exist.'));
         });
 
         xit('throws an exception if the specified method does not exist', function(){
