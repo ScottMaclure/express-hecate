@@ -89,7 +89,20 @@ describe('Hecate', function(){
             expect(spy.calledOnce).toBe(true);
         });
 
-        it('generates warnings for unrecognised HTTP verbs', function(){
+        it('throws an exception if the routes file does not exist', function(){
+
+            // Create a customised router.
+            router = new Hecate({
+                routesFile: 'nothing.conf'
+            });
+
+            // Parse.
+            expect(function(){
+                router.getRoutes();
+            }).toThrow(new Error('The specified routes file (nothing.conf) does not exist or could not be read.'));
+        });
+
+        it('throws an exception for unrecognised HTTP verbs', function(){
 
             // Create a customised router.
             router = new Hecate({
