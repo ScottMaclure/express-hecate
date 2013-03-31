@@ -143,53 +143,6 @@ describe('Hecate', function(){
             expect(spy.calledOnce).toBe(true);
         });
 
-        it('binds those routes against the provided app', function(){
-
-            // Create a spy on the desired method.
-            spy = sinon.spy(app, 'get');
-
-            // Bind the routes.
-            router.bindRoutes(app);
-
-            // The spy should be called 5 times.
-            expect(spy.callCount).toBeGreaterThan(0);
-
-            // Grab the last one.
-            var call = spy.getCall(3);
-
-            // Make sure the URL pattern is what we expect.
-            expect(call.args[0]).toBe('/demos');
-            // And a function was passed.
-            expect(typeof call.args[1]).toBe('function');
-        });
-
-        it('copes with different HTTP verbs', function(){
-
-            // Create a spy.
-            spy = sinon.spy(app, 'post');
-
-            // Bind the routes.
-            router.bindRoutes(app);
-
-            // The spy should have been called once.
-            expect(spy.calledOnce).toBe(true);
-            expect(spy.getCall(0).args[0]).toBe('/users/login');
-        });
-
-       it('supports paths when referencing controllers', function(){
-
-           // Create a spy.
-           spy = sinon.spy(app, 'get');
-
-           // Bind the routes.
-           router.bindRoutes(app);
-
-           // Grab the 6th call (to the event.show combination), and make sure the function was loaded.
-           var call = spy.getCall(5);
-           expect(call.args[0]).toBe('/calendar/:id');
-           expect(typeof call.args[1]).toBe('function');
-        });
-
         it('makes the Hecate instance available to templates via app.locals', function(){
 
             // Bind the routes.
@@ -199,58 +152,111 @@ describe('Hecate', function(){
             expect(app.locals.Hecate).not.toBeUndefined();
         });
 
-        it('throws an exception if the specified controller does not exist', function(){
+        describe('when handling normal binding', function(){
 
-            // Create a customised router.
-            router = new Hecate({
-                routesFile: 'test/helpers/broken_configs/missing_controller.conf'
+            it('binds those routes against the provided app', function(){
+
+                // Create a spy on the desired method.
+                spy = sinon.spy(app, 'get');
+
+                // Bind the routes.
+                router.bindRoutes(app);
+
+                // The spy should be called 5 times.
+                expect(spy.callCount).toBeGreaterThan(0);
+
+                // Grab the last one.
+                var call = spy.getCall(3);
+
+                // Make sure the URL pattern is what we expect.
+                expect(call.args[0]).toBe('/demos');
+                // And a function was passed.
+                expect(typeof call.args[1]).toBe('function');
             });
 
-            // Bind the routes.
-            expect(function(){
+            it('copes with different HTTP verbs', function(){
+
+                // Create a spy.
+                spy = sinon.spy(app, 'post');
+
+                // Bind the routes.
                 router.bindRoutes(app);
-            }).toThrow(new Error('The specified controller (app/controllers/nothing) does not exist.'));
-        });
 
-        it('throws an exception if the specified method does not exist', function(){
-
-            // Create a customised router.
-            router = new Hecate({
-                controllersPath: 'test/helpers/controllers/',
-                routesFile: 'test/helpers/broken_configs/missing_method.conf'
+                // The spy should have been called once.
+                expect(spy.calledOnce).toBe(true);
+                expect(spy.getCall(0).args[0]).toBe('/users/login');
             });
 
-            // Bind the routes.
-            expect(function(){
-                router.bindRoutes(app);
-            }).toThrow(new Error('The specified method (nothing) does not exist on the controller (test/helpers/controllers/app).'));
-        });
+           it('supports paths when referencing controllers', function(){
 
-        it('allows binding of static directories', function(){
+               // Create a spy.
+               spy = sinon.spy(app, 'get');
 
-            // Create a spy.
-            spy = sinon.spy(app, 'use');
+               // Bind the routes.
+               router.bindRoutes(app);
 
-            // Bind the routes.
-            router.bindRoutes(app);
-
-            // Verify.
-            expect(spy.calledOnce).toBe(true);
-            var call = spy.getCall(0);
-            expect(typeof call.args[0]).toBe('function');
-        });
-
-        it('throws an exception if a static directory does not exist', function(){
-
-            // Create a customised router.
-            router = new Hecate({
-                routesFile: 'test/helpers/broken_configs/missing_static_directory.conf'
+               // Grab the 6th call (to the event.show combination), and make sure the function was loaded.
+               var call = spy.getCall(5);
+               expect(call.args[0]).toBe('/calendar/:id');
+               expect(typeof call.args[1]).toBe('function');
             });
 
-            // Bind the routes.
-            expect(function(){
+            it('throws an exception if the specified controller does not exist', function(){
+
+                // Create a customised router.
+                router = new Hecate({
+                    routesFile: 'test/helpers/broken_configs/missing_controller.conf'
+                });
+
+                // Bind the routes.
+                expect(function(){
+                    router.bindRoutes(app);
+                }).toThrow(new Error('The specified controller (app/controllers/nothing) does not exist.'));
+            });
+
+            it('throws an exception if the specified method does not exist', function(){
+
+                // Create a customised router.
+                router = new Hecate({
+                    controllersPath: 'test/helpers/controllers/',
+                    routesFile: 'test/helpers/broken_configs/missing_method.conf'
+                });
+
+                // Bind the routes.
+                expect(function(){
+                    router.bindRoutes(app);
+                }).toThrow(new Error('The specified method (nothing) does not exist on the controller (test/helpers/controllers/app).'));
+            });
+        });
+
+        describe('when handling static directories', function(){
+
+            it('allows binding of static directories', function(){
+
+                // Create a spy.
+                spy = sinon.spy(app, 'use');
+
+                // Bind the routes.
                 router.bindRoutes(app);
-            }).toThrow(new Error('The specified static path (nothing) does not exist or is not a directory.'));
+
+                // Verify.
+                expect(spy.calledOnce).toBe(true);
+                var call = spy.getCall(0);
+                expect(typeof call.args[0]).toBe('function');
+            });
+
+            it('throws an exception if a static directory does not exist', function(){
+
+                // Create a customised router.
+                router = new Hecate({
+                    routesFile: 'test/helpers/broken_configs/missing_static_directory.conf'
+                });
+
+                // Bind the routes.
+                expect(function(){
+                    router.bindRoutes(app);
+                }).toThrow(new Error('The specified static path (nothing) does not exist or is not a directory.'));
+            });
         });
     });
 
