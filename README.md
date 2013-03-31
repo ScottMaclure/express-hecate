@@ -15,6 +15,7 @@ A convenience module for configuring and reversing routes in Express, like those
 ## Features
 * Support for basic URL => controller + method mappings
 * Support for static directory mapping
+* Support for wildcard routing
 * Reversing, aka the ability to ask for the URL representing a given controller/method combination, optionally passing
 variables to be injected
 
@@ -49,6 +50,16 @@ You can add a mapping to a static directory using the `staticDir:` directive. Th
 This is essentially the same as writing `app.use(express.static(__dirname + '/public'));`. The advantage is you didn't
 actually have to specify this outside the Routes file. Because of the way Express handles static folders, the verb and
 the path are technically unnecessary, but are required in the routes file just for convenience and consistency.
+
+### Wildcard Routing
+Hecate supports wildcard routing for controllers with a predictable URL schema. Wildcards are an easy way to expose all
+the methods of a given controller via a particular base URL. The format is:
+
+    GET     /info/{method}          info.{method}
+
+This declaration in your Routes file will create routes for each function exposed on the `info` controller. So if `info`
+has two methods, say, `about` and `faqs`, it will create two route bindings, one each to `/info/about` and `/info/faqs`,
+with the corresponding methods configured to respond to them.
 
 ## Reversing
 One of the most useful features of Hecate is the `reverse()` method. This allows you to ask for the URL representing a
@@ -116,6 +127,7 @@ that demonstrates how to integrate Hecate in your Express application. It also f
 explanation of the core principles.
 
 ## Changelog
+* 0.5.0 - Adding support for wildcard routing.
 * 0.4.0 - Adding support for static directories, extensively improved error handling, rewrote documentation.
 * 0.3.4 - Documentation cleanup, fixing lint issues, reformatting, added changelog.
 * 0.3.3 - Vastly expanded support for objects and named variable references in `reverse` method.

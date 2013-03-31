@@ -114,6 +114,44 @@ describe('Hecate', function(){
                 router.getRoutes();
             }).toThrow(new Error('Unrecognised HTTP verb for route: /test'));
         });
+
+        describe('when handling wildcard method binding', function(){
+
+            it('creates a binding for each function on the specified controller', function(){
+
+                // Parse the routes.
+                var routes = router.getRoutes();
+
+                // Make sure entries were created for the 3 relevant methods.
+                expect(routes[8].path).toBe('/info/index');
+                expect(routes[9].path).toBe('/info/faqs');
+                expect(routes[10].path).toBe('/info/termsAndConditions');
+            });
+
+            it('ignores anything that is not a function on the specified controller', function(){
+
+                // Parse the routes.
+                var routes = router.getRoutes();
+
+                // Iterate over those, and make sure none of them included the url '/info/notAFunction'.
+                for (var i = 0; i < routes.length; i ++) {
+                    expect(routes[i].path).not.toBe('/info/notAFunction');
+                }
+            });
+
+            it('throws an exception if the controller for a wildcard binding does not exist', function(){
+
+                // Create a customised router.
+                router = new Hecate({
+                    routesFile: 'test/helpers/broken_configs/missing_wildcard_controller.conf'
+                });
+
+                // Parse.
+                expect(function(){
+                    router.getRoutes();
+                }).toThrow(new Error('The specified controller (app/controllers/nothing) does not exist.'));
+            });
+        });
     });
 
     describe('when binding routes against an app', function(){

@@ -1,10 +1,6 @@
 /*global module */
 
 /**
- * Home page.
+ * Mock methods for use in testing.
  */
-module.exports.show = function(req, res){
-    res.render('index', {
-        title: 'Express Router'
-    });
-};
+module.exports.show = function(){};
