@@ -2,28 +2,46 @@
     "name": "express-hecate",
     "description": "A convenience module for configuring and reversing routes in Express, like those in Play!",
     "author": "Pascal Zajac <pascalzajac@hotmail.com>",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "main": "lib/Hecate.js",
     "private": false,
+
+    "engines": {
+        "node": ">= 0.8.x"
+    },
+    "keywords": [
+        "express",
+        "hecate",
+        "reverse",
+        "reversing",
+        "router",
+        "routing"
+    ],
     "scripts": {
         "test": "./node_modules/.bin/jasmine-node test"
     },
+
     "repository": {
         "type": "git",
-        "url": "https://github.com/PascalZajac/express-hecate.git"
+        "url": "git://github.com/PascalZajac/express-hecate.git"
     },
+    "bugs": {
+        "url": "https://github.com/PascalZajac/express-hecate/issues"
+    },
+    "licenses": [{
+        "type": "MIT",
+        "url": "https://github.com/PascalZajac/express-hecate/blob/master/LICENSE-MIT"
+    }],
+
     "dependencies": {
         "extend": "1.1.3"
     },
     "devDependencies": {
         "express": "3.1.x",
         "grunt": "0.4.x",
-        "grunt-contrib-jshint": "0.3.x",
+        "grunt-contrib-jshint": "0.5.x",
         "grunt-regarde": "0.1.1",
-        "jasmine-node": "1.4.0",
-        "sinon": "1.6.0"
-    },
-    "engines": {
-        "node": ">= 0.8.x"
+        "jasmine-node": "1.7.x",
+        "sinon": "1.7.x"
     }
 }
